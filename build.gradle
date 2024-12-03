@@ -3,6 +3,7 @@ buildscript {
         maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://plugins.gradle.org/m2/' }
         maven { url = 'https://repo.spongepowered.org/maven/' }
+        maven { url = 'https://maven.moddingx.org/' }
         mavenCentral()
     }
     dependencies {
@@ -10,6 +11,7 @@ buildscript {
         classpath group: 'org.spongepowered',                   name: 'mixingradle', version: '0.7-SNAPSHOT'
         classpath group: 'gradle.plugin.com.modrinth.minotaur', name: 'Minotaur',    version: '1.2.1'
         classpath group: 'gradle.plugin.com.matthewprenger',    name: 'CurseGradle', version: '1.4.0'
+        classpath group: 'org.moddingx',                        name: 'ModGradle',   version: '3.1.2'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -27,6 +29,8 @@ group = "${config.GROUP}.${config.ARTIFACT}"
 archivesBaseName = "${config.ARCHIVES_BASE_NAME}-${config.MINECRAFT_VERSION}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+apply plugin: 'org.moddingx.modgradle.sourcejar'
 
 minecraft {
     mappings channel: config.MAPPINGS_CHANNEL, version: config.MAPPINGS_VERSION
@@ -127,13 +131,6 @@ jar {
 }
 
 jar.finalizedBy('reobfJar')
-
-task sourcesJar(type: Jar) {
-    archiveClassifier.set('sources')
-    from sourceSets.main.allJava
-}
-
-tasks.build.dependsOn sourcesJar
 
 publishing {
     publications {
