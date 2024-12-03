@@ -16,25 +16,18 @@
 
 package org.infernalstudios.miningmaster.blocks;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.DropExperienceBlock;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+public class GemOreBlock extends DropExperienceBlock {
+    public GemOreBlock(Properties p_221083_, IntProvider p_221084_) {
+        super(p_221083_, p_221084_);
+    }
 
-public class GemOreBlock extends Block {
-
+    // TRAILING COMMENT TO KEEP
+    // ORIGINAL LINE NUMBER NODES
     public GemOreBlock(Properties properties) {
-        super(properties);
+        super(properties, UniformInt.of(5, 10));
     }
-
-    @Override
-    public int getExpDrop(BlockState state, LevelReader reader, RandomSource rand,BlockPos pos, int fortune, int silktouch) {
-        return silktouch == 0 ? Mth.nextInt(rand, 5, 10) : 0;
-    }
-
-
 }
